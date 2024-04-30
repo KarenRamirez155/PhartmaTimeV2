@@ -3,7 +3,7 @@ import './login.css';
 import { LoginModel } from '../../models/LoginModel';
 import { LuLogIn } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
-import api from '../../config/api';
+import { loginService } from '../../services/auth';
 
 export const Login = () => {
 	return (
@@ -14,20 +14,24 @@ export const Login = () => {
 					contrasena: '',
 				}}
 				onSubmit={(values: LoginModel) => {
-					api
-						.post('/login', values)
-						.then((r) => {
-							console.log(r.data.mensaje);
+					loginService(values)
+						.then((data) => {
+							console.log(data);
 						})
-						.catch((e) => {
-							console.error(e);
+						.catch((error) => {
+							console.log(error);
 						});
 				}}
 			>
 				{() => (
 					<Form className="form">
 						<LuLogIn size={82} className="icon-login" />
-						<Field className="input-field" placeholder="usuario" type="text" name="correo" />
+						<Field
+							className="input-field"
+							placeholder="usuario"
+							type="text"
+							name="correo"
+						/>
 						<Field
 							className="input-field"
 							placeholder="contraseña"
