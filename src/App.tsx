@@ -4,11 +4,13 @@ import { Login } from './pages/login/Login';
 import { RecoveryPassword } from './pages/recovery-password/RecoveryPassword';
 import DashboardLayout from './layouts/DashboardLayout';
 import Pacientes from './pages/dashboard/pacientes/Pacientes';
+import { Page404 } from './pages/404/404';
 
 const App = () => {
 	return (
 		<Router>
 			<Routes>
+				<Route path="*" element={<Page404 />} />
 				<Route path="/Login" element={<Login />} />
 				<Route path="/Register" element={<Register />} />
 				<Route path="/Recovery" element={<RecoveryPassword />} />

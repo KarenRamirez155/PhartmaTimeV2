@@ -62,13 +62,13 @@ const Pacientes = () => {
 							<td className="text-center space-x-4">
 								<button
 									onClick={() => setisOpenModal(true)}
-									className="bg-primary-900/80 hover:bg-primary-900 transition-colors text-white p-1 rounded-lg text-white p-1 rounded-lg"
+									className="bg-primary-900/80 hover:bg-primary-900 transition-colors text-white p-1 rounded-lg "
 								>
 									<IoPencilOutline />
 								</button>
 								<button
 									onClick={() => handleDelete('Jhon')}
-									className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg text-white p-1 rounded-lg"
+									className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg"
 								>
 									<IoTrashOutline />
 								</button>

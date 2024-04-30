@@ -1,4 +1,4 @@
 export interface LoginModel {
-	usuario: string;
-	password: string;
+	correo: string;
+	contrasena: string;
 }
