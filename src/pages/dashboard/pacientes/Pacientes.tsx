@@ -71,33 +71,34 @@ const Pacientes = () => {
 						</tr>
 					</thead>
 					<tbody className="bg-cyan-100">
-						{pacientes.map((pat) => (
-							<tr key={pat.idUsuario} className="border-b border-black">
-								<td>{pat.nombre}</td>
-								<td>{pat.apellido}</td>
-								<td>{pat.genero}</td>
-								<td>{pat.edad}</td>
-								<td>{pat.telefono}</td>
-								<td>{pat.correo}</td>
-								<td className="text-center space-x-4">
-									<button
-										onClick={() => {
-											setisOpenModal(true);
-											setPaciente(pat);
-										}}
-										className="bg-primary-900/80 hover:bg-primary-900 transition-colors text-white p-1 rounded-lg "
-									>
-										<IoPencilOutline />
-									</button>
-									<button
-										onClick={() => handleDelete('Jhon')}
-										className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg"
-									>
-										<IoTrashOutline />
-									</button>
-								</td>
-							</tr>
-						))}
+						{pacientes &&
+							pacientes.map((pat) => (
+								<tr key={pat.idUsuario} className="border-b border-black">
+									<td>{pat.nombre}</td>
+									<td>{pat.apellido}</td>
+									<td>{pat.genero}</td>
+									<td>{pat.edad}</td>
+									<td>{pat.telefono}</td>
+									<td>{pat.correo}</td>
+									<td className="text-center space-x-4">
+										<button
+											onClick={() => {
+												setisOpenModal(true);
+												setPaciente(pat);
+											}}
+											className="bg-primary-900/80 hover:bg-primary-900 transition-colors text-white p-1 rounded-lg "
+										>
+											<IoPencilOutline />
+										</button>
+										<button
+											onClick={() => handleDelete('Jhon')}
+											className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg"
+										>
+											<IoTrashOutline />
+										</button>
+									</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
 			</div>

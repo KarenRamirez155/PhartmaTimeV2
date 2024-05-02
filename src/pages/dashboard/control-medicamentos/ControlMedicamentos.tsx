@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AsignarMedicamentoForm } from '../../../components/dashboard/asignarMedicamentoForm/AsignarMedicamentoForm';
 import { IoPencilOutline, IoTrashOutline } from 'react-icons/io5';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import { useDrugsStore } from '../../../store/assignDrugs';
 
 const ControlMedicamentos = () => {
 	const [isOpenModal, setisOpenModal] = useState(false);
-
+	const { drugs, getAllDrugs } = useDrugsStore();
+	useEffect(() => {
+		getAllDrugs();
+	}, []);
 	const handleDelete = (name: string) => {
 		const MySwal = withReactContent(Swal);
 		MySwal.fire({
@@ -53,26 +57,29 @@ const ControlMedicamentos = () => {
 						</tr>
 					</thead>
 					<tbody className="bg-cyan-100">
-						<tr className="border-b border-black">
-							<td>Azetaminofen</td>
-							<td>TODO</td>
-							<td>Pastilla</td>
-							<td>Alergias</td>
-							<td className="text-center space-x-4">
-								<button
-									onClick={() => setisOpenModal(true)}
-									className="bg-primary-900/80 hover:bg-primary-900 transition-colors text-white p-1 rounded-lg "
-								>
-									<IoPencilOutline />
-								</button>
-								<button
-									onClick={() => handleDelete('azetaminofen')}
-									className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg"
-								>
-									<IoTrashOutline />
-								</button>
-							</td>
-						</tr>
+						{drugs &&
+							drugs.map((drug) => (
+								<tr className="border-b border-black">
+									<td>{drug.nombre}</td>
+									<td>{drug.sirvePara}</td>
+									<td>{drug.presentacion}</td>
+									<td>{drug.contraindicaciones}</td>
+									<td className="text-center space-x-4">
+										<button
+											onClick={() => setisOpenModal(true)}
+											className="bg-primary-900/80 hover:bg-primary-900 transition-colors text-white p-1 rounded-lg "
+										>
+											<IoPencilOutline />
+										</button>
+										<button
+											onClick={() => handleDelete('azetaminofen')}
+											className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg"
+										>
+											<IoTrashOutline />
+										</button>
+									</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
 			</div>

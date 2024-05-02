@@ -1,17 +1,17 @@
 import { create } from 'zustand';
-import { getAllAsignDrugService } from '../services/drugs-service';
 import { Drug } from '../models/Drug';
+import { getAllDrugService } from '../services/drugs-service';
 
-export interface AssignDrugsStoreType {
-	assignDrugs: Drug[];
-	getAllAssignDrugs: () => void;
+export interface DrugsStoreType {
+	drugs: Drug[];
+	getAllDrugs: () => void;
 }
 
-export const useAssignDrugsStore = create<AssignDrugsStoreType>()((set) => ({
-	assignDrugs: [],
-	getAllAssignDrugs: () => {
-		getAllAsignDrugService().then((assignDrugs) => {
-			set({ assignDrugs: assignDrugs });
+export const useDrugsStore = create<DrugsStoreType>()((set) => ({
+	drugs: [],
+	getAllDrugs: () => {
+		getAllDrugService().then((drugs) => {
+			set({ drugs: drugs });
 		});
 	},
 }));

@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import { AsignarMedicamentoForm } from '../../../components/dashboard/asignarMedicamentoForm/AsignarMedicamentoForm';
 import { NuevoMedicamentoForm } from '../../../components/dashboard/nuevoMedicamentoForm/NuevoMedicamentoForm';
-import { useRequestDrugsStore } from '../../../store/requestDrugsStore';
-import { RequestDrug } from '../../../models/RequestDrug';
+
+import { useDrugsStore } from '../../../store/assignDrugs';
+import { Drug } from '../../../models/Drug';
 
 const AsignacionMedicamentos = () => {
 	const [isOpenModal, setisOpenModal] = useState(false);
 	const [isOpenModalNuevoMedicamento, setisOpenModalNuevoMedicamento] =
 		useState(false);
 
-	const { getAllRequestDrugs, requestDrugs } = useRequestDrugsStore();
-	const [selectedDrug, setSelectedDrug] = useState<RequestDrug | undefined>(
-		undefined
-	);
+	const { getAllDrugs, drugs } = useDrugsStore();
+	const [selectedDrug, setSelectedDrug] = useState<Drug | undefined>(undefined);
 
 	useEffect(() => {
-		getAllRequestDrugs();
+		getAllDrugs();
 	}, []);
 
 	return (
@@ -44,31 +43,32 @@ const AsignacionMedicamentos = () => {
 						<tr>
 							<th>Nombre del Medicamento</th>
 							<th>Sirve para</th>
-							{/* <th>Presentación</th>
-							<th>Contraindicaciones</th> */}
+							<th>Presentación</th>
+							<th>Contraindicaciones</th>
 							<th className="text-center">Acción</th>
 						</tr>
 					</thead>
 					<tbody className="bg-cyan-100">
-						{requestDrugs.map((requestDrug) => (
-							<tr className="border-b border-black">
-								<td>{requestDrug.medicamento}</td>
-								<td>{requestDrug.usoDado}</td>
-								{/* <td>Pastilla</td>
-								<td>Alergias</td> */}
-								<td className="text-center space-x-4">
-									<button
-										onClick={() => {
-											setisOpenModal(true);
-											setSelectedDrug(requestDrug);
-										}}
-										className=" bg-blue-900 text-white px-4 py-1 hover:bg-blue-950 transition-colors cursor-pointer"
-									>
-										Asignar
-									</button>
-								</td>
-							</tr>
-						))}
+						{drugs &&
+							drugs.map((drug) => (
+								<tr className="border-b border-black">
+									<td>{drug.nombre}</td>
+									<td>{drug.sirvePara}</td>
+									<td>{drug.presentacion}</td>
+									<td>{drug.contraindicaciones}</td>
+									<td className="text-center space-x-4">
+										<button
+											onClick={() => {
+												setisOpenModal(true);
+												setSelectedDrug(drug);
+											}}
+											className=" bg-blue-900 text-white px-4 py-1 hover:bg-blue-950 transition-colors cursor-pointer"
+										>
+											Asignar
+										</button>
+									</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
 			</div>

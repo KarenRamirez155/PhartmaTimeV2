@@ -1,3 +1,5 @@
-import { RequestDrug } from './RequestDrug';
-
-export interface NewDrug extends Omit<RequestDrug, 'IdSolicitudMedicamento'> {}
+export interface NewDrug {
+	idUsuario: number;
+	medicamento: string;
+	usoDado: string;
+}

@@ -13,14 +13,10 @@ export const loginService = async (values: LoginModel): Promise<Profile> => {
 	const result = await axios.post(LOGIN(), values, {
 		headers: { 'Content-Type': 'application/json' },
 	});
-	if (result.status === 200)
-		return {
-			apellido: 'Domingas',
-			nombre: 'Doctor',
-			rol: 'medico',
-			idUsuario: 1040,
-		};
-	throw new Error(`${result.status}`);
+	console.log(result.data);
+
+	if (result.status === 200) return result.data;
+	throw new Error(`${result.data.message}`);
 };
 
 export const registerService = async (

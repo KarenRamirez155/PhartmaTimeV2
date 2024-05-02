@@ -20,4 +20,4 @@ export const GET_REQUEST_DRUGS = () =>
 
 //Drugs
 export const ASSIGN_DRUGS = () => URL_API + 'Drugs/AssignDrugs';
-export const GET_ASSIGN_DRUGS = () => URL_API + 'Drugs/';
+export const GET_DRUGS = () => URL_API + 'Drugs/ReadDrug';

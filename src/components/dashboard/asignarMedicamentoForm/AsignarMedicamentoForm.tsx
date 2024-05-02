@@ -6,9 +6,9 @@ import { Form, Formik } from 'formik';
 import { AssignDrug } from '../../../models/AssignDrug';
 import * as yup from 'yup';
 import { assignDrugService } from '../../../services/drugs-service';
-import { useAssignDrugsStore } from '../../../store/assignDrugs';
 import { useUserStore } from '../../../store/userStore';
-import { RequestDrug } from '../../../models/RequestDrug';
+import { useDrugsStore } from '../../../store/assignDrugs';
+import { Drug } from '../../../models/Drug';
 
 const AsignarMedicamentoSchema = yup.object({
 	dosis: yup.string().required(),
@@ -22,7 +22,7 @@ const AsignarMedicamentoSchema = yup.object({
 interface AsignarMedicamentoFormProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	drug?: RequestDrug;
+	drug?: Drug;
 }
 
 export const AsignarMedicamentoForm = ({
@@ -30,7 +30,7 @@ export const AsignarMedicamentoForm = ({
 	setIsOpen,
 	drug,
 }: AsignarMedicamentoFormProps) => {
-	const { getAllAssignDrugs } = useAssignDrugsStore();
+	const { getAllDrugs } = useDrugsStore();
 	const { profile } = useUserStore();
 	return (
 		<Dialog open={isOpen} onClose={() => setIsOpen(false)}>
@@ -44,7 +44,7 @@ export const AsignarMedicamentoForm = ({
 						initialValues={{
 							dosis: '',
 							durante: '',
-							id_medicamento: drug?.IdSolicitudMedicamento ?? 0,
+							id_medicamento: drug?.idMedicamento ?? 0,
 							id_tutor: profile.idUsuario,
 							id_usuario: 0,
 							intervalo: 0,
@@ -52,11 +52,18 @@ export const AsignarMedicamentoForm = ({
 						onSubmit={(values: AssignDrug) => {
 							assignDrugService(values).then(() => {
 								setIsOpen(false);
-								getAllAssignDrugs();
+								getAllDrugs();
 							});
 						}}
 					>
-						{({ handleBlur, handleChange, values, errors, touched }) => (
+						{({
+							handleBlur,
+							handleChange,
+							values,
+							errors,
+							touched,
+							setFieldValue,
+						}) => (
 							<Form>
 								<div className="grid grid-cols-2 gap-2">
 									<div>
@@ -64,6 +71,7 @@ export const AsignarMedicamentoForm = ({
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={values.durante}
+											name="durante"
 											placeholder="Durante"
 										/>
 										{errors.durante && touched.durante && (
@@ -73,8 +81,12 @@ export const AsignarMedicamentoForm = ({
 									<div>
 										<InputTransparent
 											onBlur={handleBlur}
-											onChange={handleChange}
+											onChange={(e) =>
+												setFieldValue('id_usuario', Number(e.target.value))
+											}
 											value={values.id_usuario}
+											type="number"
+											name="id_usuario"
 											placeholder="Cédula"
 										/>
 										{errors.id_usuario && touched.id_usuario && (
@@ -86,6 +98,7 @@ export const AsignarMedicamentoForm = ({
 											onBlur={handleBlur}
 											onChange={handleChange}
 											value={values.dosis}
+											name="dosis"
 											placeholder="Dosis"
 										/>
 										{errors.dosis && touched.dosis && (
@@ -95,8 +108,12 @@ export const AsignarMedicamentoForm = ({
 									<div>
 										<InputTransparent
 											onBlur={handleBlur}
-											onChange={handleChange}
+											onChange={(e) =>
+												setFieldValue('intervalo', Number(e.target.value))
+											}
 											value={values.intervalo}
+											name="intervalo"
+											type="number"
 											placeholder="Intervalo"
 										/>
 										{errors.intervalo && touched.intervalo && (
