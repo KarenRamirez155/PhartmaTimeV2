@@ -3,7 +3,7 @@ import { Input } from '../../components/ui/Input';
 
 export const RecoveryPassword = () => {
 	return (
-		<div className="bg-principal h-screen w-screen object-cover object-center flex justify-center items-center">
+		<div className="bg-principal h-screen w-screen bg-cover bg-center flex justify-center items-center">
 			<div className="mx-auto absolute bg-primary-400 shadow-lg rounded-lg">
 				<h4 className="bg-primary-900 text-center uppercase rounded-t-lg">
 					Recuperar Contraseña
@@ -32,7 +32,7 @@ export const RecoveryPassword = () => {
 					<div className="flex items-end">
 						<label className="flex flex-col text-center">
 							<span className="text-black font-semibold">
-								Correo electrónico
+								Digite Nueva contraseña
 							</span>
 							<Input type="text" placeholder="Escriba aqui" />
 						</label>

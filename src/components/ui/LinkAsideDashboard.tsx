@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { Link, LinkProps } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 
-interface LinkAsideDashboardProps extends LinkProps {
+interface LinkAsideDashboardProps extends NavLinkProps {
 	children: ReactNode;
 }
 
@@ -11,11 +11,15 @@ export const LinkAsideDashboard = ({
 	...props
 }: LinkAsideDashboardProps) => {
 	return (
-		<Link
+		<NavLink
 			{...props}
-			className={`bg-white w-fullpy-2 text-xl hover:bg-cyan-400 text-balance transition-colors text-center font-medium rounded-md  ${className}`}
+			className={({ isActive }) =>
+				`bg-white w-fullpy-2 text-xl hover:bg-cyan-400 text-balance transition-colors text-center font-medium rounded-md  ${className} ${
+					isActive ? '!bg-cyan-400' : ''
+				}`
+			}
 		>
 			<span>{children}</span>
-		</Link>
+		</NavLink>
 	);
 };
