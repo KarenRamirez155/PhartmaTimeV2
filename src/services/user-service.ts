@@ -13,7 +13,6 @@ export const loginService = async (values: LoginModel): Promise<Profile> => {
 	const result = await axios.post(LOGIN(), values, {
 		headers: { 'Content-Type': 'application/json' },
 	});
-	console.log(result.data);
 
 	if (result.status === 200) return result.data;
 	throw new Error(`${result.data.message}`);
@@ -30,6 +29,8 @@ export const registerService = async (
 };
 
 export const recoverPasswordService = async (correo: string) => {
+	console.log(correo);
+
 	const result = await axios.post(
 		RECOVERY_PASSWORD(),
 		{ destinatario: correo },

@@ -1,5 +1,6 @@
 export interface PacienteModel {
 	idUsuario: number;
+	idTutor: number;
 	nombre: string;
 	apellido: string;
 	genero: number;

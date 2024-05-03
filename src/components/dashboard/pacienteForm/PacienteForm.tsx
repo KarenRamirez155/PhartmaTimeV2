@@ -10,6 +10,7 @@ import {
 	updatePacienteService,
 } from '../../../services/patient-service';
 import { usePacienteStore } from '../../../store/pacienteStore';
+import { useUserStore } from '../../../store/userStore';
 
 const pacienteFormShcema = yup.object({
 	apellido: yup.string().required(),
@@ -28,6 +29,7 @@ interface PacienteFormProps {
 }
 const PacienteForm = ({ isOpen, setIsOpen, paciente }: PacienteFormProps) => {
 	const { getAllPacientes } = usePacienteStore();
+	const { profile } = useUserStore();
 	const [error, setError] = useState('');
 	useEffect(() => {
 		setError('');
@@ -51,13 +53,14 @@ const PacienteForm = ({ isOpen, setIsOpen, paciente }: PacienteFormProps) => {
 							idUsuario: paciente?.idUsuario ?? 0,
 							nombre: paciente?.nombre ?? '',
 							telefono: paciente?.telefono ?? '',
+							idTutor: profile.idUsuario,
 						}}
 						onSubmit={(values: PacienteModel) => {
 							if (paciente) {
 								updatePacienteService(values)
 									.then(() => {
 										setIsOpen(false);
-										getAllPacientes();
+										getAllPacientes(profile.idUsuario);
 									})
 									.catch((err: Error) => {
 										setError(err.message);
@@ -68,7 +71,7 @@ const PacienteForm = ({ isOpen, setIsOpen, paciente }: PacienteFormProps) => {
 							registerPacienteService(values)
 								.then(() => {
 									setIsOpen(false);
-									getAllPacientes();
+									getAllPacientes(profile.idUsuario);
 								})
 								.catch((err: Error) => {
 									setError(err.message);

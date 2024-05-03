@@ -4,13 +4,13 @@ import { getAllPacientesService } from '../services/patient-service';
 
 export interface PacienteStoreType {
 	pacientes: PacienteModel[];
-	getAllPacientes: () => void;
+	getAllPacientes: (idTutor: number) => void;
 }
 
 export const usePacienteStore = create<PacienteStoreType>()((set) => ({
 	pacientes: [],
-	getAllPacientes: () => {
-		getAllPacientesService().then((pacientes) => {
+	getAllPacientes: (idTutor: number) => {
+		getAllPacientesService(idTutor).then((pacientes) => {
 			set({ pacientes: pacientes });
 		});
 	},

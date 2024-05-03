@@ -5,19 +5,22 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { PacienteModel } from '../../../models/PacienteModel';
 import { usePacienteStore } from '../../../store/pacienteStore';
+import { useUserStore } from '../../../store/userStore';
+import { deletePacienteService } from '../../../services/patient-service';
 
 const Pacientes = () => {
 	const [isOpenModal, setisOpenModal] = useState(false);
 	const [paciente, setPaciente] = useState<PacienteModel | undefined>(
 		undefined
 	);
+	const { profile } = useUserStore();
 	const { getAllPacientes, pacientes } = usePacienteStore();
 
 	useEffect(() => {
-		getAllPacientes();
+		getAllPacientes(profile.idUsuario);
 	}, []);
 
-	const handleDelete = (name: string) => {
+	const handleDelete = (idPatient: number) => {
 		const MySwal = withReactContent(Swal);
 		MySwal.fire({
 			title: 'Are you sure?',
@@ -29,11 +32,22 @@ const Pacientes = () => {
 			confirmButtonText: 'Yes, delete it!',
 		}).then((result) => {
 			if (result.isConfirmed) {
-				MySwal.fire({
-					title: 'Deleted!',
-					text: `el paciente ${name} fue eliminado`,
-					icon: 'success',
-				});
+				deletePacienteService(idPatient)
+					.then(() => {
+						MySwal.fire({
+							title: 'Deleted!',
+							text: `el paciente ${idPatient} fue eliminado`,
+							icon: 'success',
+						});
+						getAllPacientes(profile.idUsuario);
+					})
+					.catch(() => {
+						MySwal.fire({
+							title: 'Ocurrio un error',
+							text: `el paciente ${idPatient} no fue eliminado`,
+							icon: 'error',
+						});
+					});
 			}
 		});
 	};
@@ -91,7 +105,7 @@ const Pacientes = () => {
 											<IoPencilOutline />
 										</button>
 										<button
-											onClick={() => handleDelete('Jhon')}
+											onClick={() => handleDelete(pat.idUsuario)}
 											className="bg-red-500 hover:bg-red-600 transition-colors text-white p-1 rounded-lg"
 										>
 											<IoTrashOutline />

@@ -32,6 +32,7 @@ export const AsignarMedicamentoForm = ({
 }: AsignarMedicamentoFormProps) => {
 	const { getAllDrugs } = useDrugsStore();
 	const { profile } = useUserStore();
+
 	return (
 		<Dialog open={isOpen} onClose={() => setIsOpen(false)}>
 			<div className="fixed inset-0 flex w-screen items-center justify-center p-4">
@@ -66,7 +67,8 @@ export const AsignarMedicamentoForm = ({
 						}) => (
 							<Form>
 								<div className="grid grid-cols-2 gap-2">
-									<div>
+									<div className="flex flex-col">
+										<label htmlFor="durante">Durante</label>
 										<InputTransparent
 											onBlur={handleBlur}
 											onChange={handleChange}
@@ -75,25 +77,31 @@ export const AsignarMedicamentoForm = ({
 											placeholder="Durante"
 										/>
 										{errors.durante && touched.durante && (
-											<span>{errors.durante}</span>
+											<span className="text-red-500">{errors.durante}</span>
 										)}
 									</div>
-									<div>
+									<div className="flex flex-col">
+										<label htmlFor="id_usuario">Id_Usuario</label>
 										<InputTransparent
 											onBlur={handleBlur}
-											onChange={(e) =>
-												setFieldValue('id_usuario', Number(e.target.value))
-											}
+											onChange={(e) => {
+												{
+													const text = Number(e.target.value);
+													if (!isNaN(text)) {
+														setFieldValue('id_usuario', text);
+													}
+												}
+											}}
 											value={values.id_usuario}
-											type="number"
 											name="id_usuario"
 											placeholder="Cédula"
 										/>
 										{errors.id_usuario && touched.id_usuario && (
-											<span>{errors.id_usuario}</span>
+											<span className="text-red-500">{errors.id_usuario}</span>
 										)}
 									</div>
-									<div>
+									<div className="flex flex-col">
+										<label htmlFor="dosis">Dosis</label>
 										<InputTransparent
 											onBlur={handleBlur}
 											onChange={handleChange}
@@ -102,22 +110,27 @@ export const AsignarMedicamentoForm = ({
 											placeholder="Dosis"
 										/>
 										{errors.dosis && touched.dosis && (
-											<span>{errors.dosis}</span>
+											<span className="text-red-500">{errors.dosis}</span>
 										)}
 									</div>
-									<div>
+									<div className="flex flex-col">
+										<label htmlFor="intervalo">Intervalo</label>
 										<InputTransparent
 											onBlur={handleBlur}
-											onChange={(e) =>
-												setFieldValue('intervalo', Number(e.target.value))
-											}
+											onChange={(e) => {
+												{
+													const text = Number(e.target.value);
+													if (!isNaN(text)) {
+														setFieldValue('intervalo', text);
+													}
+												}
+											}}
 											value={values.intervalo}
 											name="intervalo"
-											type="number"
 											placeholder="Intervalo"
 										/>
 										{errors.intervalo && touched.intervalo && (
-											<span>{errors.intervalo}</span>
+											<span className="text-red-500">{errors.intervalo}</span>
 										)}
 									</div>
 								</div>

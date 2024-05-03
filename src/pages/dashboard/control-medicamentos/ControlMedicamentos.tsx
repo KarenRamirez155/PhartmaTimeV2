@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { AsignarMedicamentoForm } from '../../../components/dashboard/asignarMedicamentoForm/AsignarMedicamentoForm';
 import { IoPencilOutline, IoTrashOutline } from 'react-icons/io5';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { useDrugsStore } from '../../../store/assignDrugs';
+import { ControlMedicamentoForm } from '../../../components/dashboard/controlMedicamentoForm/ControlMedicamentoForm';
 
 const ControlMedicamentos = () => {
 	const [isOpenModal, setisOpenModal] = useState(false);
@@ -34,7 +34,7 @@ const ControlMedicamentos = () => {
 
 	return (
 		<>
-			<AsignarMedicamentoForm isOpen={isOpenModal} setIsOpen={setisOpenModal} />
+			<ControlMedicamentoForm isOpen={isOpenModal} setIsOpen={setisOpenModal} />
 
 			<div className="w-full space-y-4">
 				<div className="text-black flex justify-between w-full items-center">
