@@ -12,8 +12,6 @@ export const getRequestDrugsService = async (): Promise<RequestDrug[]> => {
 };
 
 export const RequestNewDrugsService = async (values: NewDrug) => {
-	console.log(values);
-
 	const result = await axios.post(REQUEST_NEW_DRUGS(), values, {
 		headers: { 'Content-Type': 'application/json' },
 	});

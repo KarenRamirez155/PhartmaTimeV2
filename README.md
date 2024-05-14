@@ -15,3 +15,7 @@ pnpm install
 ```bash
 pnpm run dev
 ```
+
+❌ Horario
+❌ Asignar Enfermedades a los pacientes
+❌ Lista Medicamentos (solo lectura)

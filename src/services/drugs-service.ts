@@ -4,8 +4,6 @@ import { ASSIGN_DRUGS, GET_DRUGS } from '../config/endpoints';
 import { Drug } from '../models/Drug';
 
 export const assignDrugService = async (assignDrug: AssignDrug) => {
-	console.log(assignDrug);
-
 	const result = await axios.post(ASSIGN_DRUGS(), assignDrug, {
 		headers: { 'Content-Type': 'application/json' },
 	});

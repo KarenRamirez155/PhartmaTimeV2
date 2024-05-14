@@ -29,8 +29,6 @@ export const registerService = async (
 };
 
 export const recoverPasswordService = async (correo: string) => {
-	console.log(correo);
-
 	const result = await axios.post(
 		RECOVERY_PASSWORD(),
 		{ destinatario: correo },
