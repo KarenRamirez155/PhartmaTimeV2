@@ -1,8 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Header } from '../components/dashboard/header/Header';
 import { Aside } from '../components/dashboard/aside/Aside';
+import { useUserStore } from '../store/userStore';
+import { useEffect } from 'react';
 
 const DashboardLayout = () => {
+	const navigate = useNavigate();
+	const { isLogged } = useUserStore();
+
+	useEffect(() => {
+		if (!isLogged) {
+			navigate('/login');
+		}
+	}, []);
+
 	return (
 		<div>
 			<Header />

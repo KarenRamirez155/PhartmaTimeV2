@@ -5,4 +5,5 @@ export interface Profile {
 	nombre: string;
 	apellido: string;
 	idUsuario: number;
+	token: string;
 }

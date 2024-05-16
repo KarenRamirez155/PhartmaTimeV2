@@ -10,7 +10,6 @@ export const HorarioTable = ({ tutorSchedules }: HorarioTableProps) => {
 	useEffect(() => {
 		setData(tutorSchedules);
 	}, [tutorSchedules]);
-	console.log(data);
 
 	return (
 		<div>

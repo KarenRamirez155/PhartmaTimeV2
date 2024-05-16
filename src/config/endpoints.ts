@@ -26,3 +26,6 @@ export const GET_DRUGS = () => URL_API + 'Drugs/ReadDrug';
 //Schedule
 export const SCHEDULE = () => URL_API + 'Schedule/DataSchedulePatient';
 export const TUTOR_SCHEDULE = () => URL_API + 'Schedule/DataScheduleTutor';
+
+//Report
+export const REPORT = () => URL_API + 'Report/ReportV2';

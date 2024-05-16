@@ -16,6 +16,9 @@ pnpm install
 pnpm run dev
 ```
 
-❌ Horario
+✅ Horario
 ❌ Asignar Enfermedades a los pacientes
 ❌ Lista Medicamentos (solo lectura)
+✅ Proteger Rutas
+✅ JWT
+✅ Descargar PDF

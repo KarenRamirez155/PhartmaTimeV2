@@ -3,6 +3,9 @@ import { SCHEDULE, TUTOR_SCHEDULE } from '../config/endpoints';
 import { Schedule } from '../models/Schedule';
 import { TutorSchedule } from '../models/TutorShedule';
 import { tutorScheduleAdapter } from '../adapters/tutorScheduleAdapter';
+import cookies from 'cookies-js';
+
+const token = cookies.get('user-token');
 
 export const getAllScheduleService = async (
 	idUsuario: number
@@ -11,7 +14,10 @@ export const getAllScheduleService = async (
 		SCHEDULE(),
 		{ idUsuario },
 		{
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token,
+			},
 		}
 	);
 
@@ -26,7 +32,10 @@ export const getAllTutorScheduleService = async (
 		TUTOR_SCHEDULE(),
 		{ idUsuario },
 		{
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token,
+			},
 		}
 	);
 

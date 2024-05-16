@@ -3,9 +3,16 @@ import { AssignDrug } from '../models/AssignDrug';
 import { ASSIGN_DRUGS, GET_DRUGS } from '../config/endpoints';
 import { Drug } from '../models/Drug';
 
+import cookies from 'cookies-js';
+
+const token = cookies.get('user-token');
+
 export const assignDrugService = async (assignDrug: AssignDrug) => {
 	const result = await axios.post(ASSIGN_DRUGS(), assignDrug, {
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + token,
+		},
 	});
 	if (result.status === 200) return true;
 	throw new Error(`${result.status}`);
@@ -13,7 +20,10 @@ export const assignDrugService = async (assignDrug: AssignDrug) => {
 
 export const getAllDrugService = async (): Promise<Drug[]> => {
 	const result = await axios.post(GET_DRUGS(), {
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + token,
+		},
 	});
 
 	if (result.status === 200) return result.data.drugsList ?? [];

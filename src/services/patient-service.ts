@@ -7,6 +7,10 @@ import {
 } from '../config/endpoints';
 import { PacienteModel } from '../models/PacienteModel';
 
+import cookies from 'cookies-js';
+
+const token = cookies.get('user-token');
+
 export const getAllPacientesService = async (
 	idTutor: number
 ): Promise<PacienteModel[]> => {
@@ -14,7 +18,10 @@ export const getAllPacientesService = async (
 		GET_PATIENT(),
 		{ idUsuario: idTutor },
 		{
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token,
+			},
 		}
 	);
 	if (result.status === 200) return result.data.usuarios ?? [];
@@ -23,7 +30,10 @@ export const getAllPacientesService = async (
 
 export const registerPacienteService = async (paciente: PacienteModel) => {
 	const result = await axios.post(REGISTER_PATIENT(), paciente, {
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + token,
+		},
 	});
 	if (result.status === 200) return true;
 	throw new Error(`${result.status}`);
@@ -31,7 +41,10 @@ export const registerPacienteService = async (paciente: PacienteModel) => {
 
 export const updatePacienteService = async (paciente: PacienteModel) => {
 	const result = await axios.post(UPDATE_PATIENT(), paciente, {
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + token,
+		},
 	});
 	if (result.status === 200) return true;
 	throw new Error(`${result.status}`);
@@ -42,7 +55,10 @@ export const deletePacienteService = async (idPaciente: number) => {
 		DELETE_PATIENT(),
 		{ idUsuario: idPaciente },
 		{
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + token,
+			},
 		}
 	);
 	if (result.status === 200) return true;

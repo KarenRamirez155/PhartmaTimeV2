@@ -3,7 +3,9 @@ import ButtonGreen from '../../components/ui/ButtonGreen';
 import { Input } from '../../components/ui/Input';
 import * as yup from 'yup';
 import { recoverPasswordService } from '../../services/user-service';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/userStore';
 
 const RecoveryPassowrdSchema = yup.object({
 	destinatario: yup.string().email().required(),
@@ -16,6 +18,15 @@ export const RecoveryPassword = () => {
 		message: '',
 	});
 
+	const navigate = useNavigate();
+	const { isLogged } = useUserStore();
+
+	useEffect(() => {
+		if (isLogged) {
+			navigate('/dashboard');
+		}
+	}, []);
+
 	return (
 		<div className="bg-principal h-screen w-screen bg-cover bg-center flex justify-center items-center">
 			<div className="mx-auto absolute bg-primary-400 shadow-lg rounded-lg min-w-[48rem]">
@@ -23,7 +34,7 @@ export const RecoveryPassword = () => {
 					Recuperar Contraseña
 				</h4>
 
-				<div className="mx-12 mt-4 mb-12 rounded-b-lg">
+				<div className="mx-12 mt-4 mb-12 rounded-b-lg flex flex-col justify-center items-center">
 					{message.message && (
 						<span
 							className={`mb-4 border border-red-900 w-full flex justify-center ${
@@ -93,6 +104,12 @@ export const RecoveryPassword = () => {
 							)}
 						</Formik>
 					</div>
+					<Link
+						className="bg-transparent px-4 py-1 rounded-lg transition-colors hover:bg-gray-400"
+						to={'/login'}
+					>
+						Volver
+					</Link>
 				</div>
 			</div>
 		</div>

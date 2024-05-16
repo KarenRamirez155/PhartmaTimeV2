@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import cookies from 'cookies-js';
 
 import { Profile } from '../models/Profile';
 
@@ -8,6 +9,7 @@ const initProfile: Profile = {
 	nombre: '',
 	idUsuario: 0,
 	rol: 'paciente',
+	token: '',
 };
 
 export interface UserStoreType {
@@ -23,6 +25,7 @@ export const useUserStore = create<UserStoreType>()(
 			profile: initProfile,
 			isLogged: false,
 			loginUser: (profile: Profile) => {
+				cookies.set('user-token', profile.token);
 				set({ profile: profile, isLogged: true });
 			},
 			logout: () => {

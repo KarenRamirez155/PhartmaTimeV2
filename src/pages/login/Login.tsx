@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginService } from '../../services/user-service';
 import * as yup from 'yup';
 import { useUserStore } from '../../store/userStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 
 const loginSchema = yup.object({
@@ -15,10 +15,16 @@ const loginSchema = yup.object({
 });
 
 export const Login = () => {
-	const { loginUser } = useUserStore();
+	const { loginUser, isLogged } = useUserStore();
 	const navigate = useNavigate();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		if (isLogged) {
+			navigate('/dashboard');
+		}
+	}, []);
 
 	return (
 		<div className="bg-login">

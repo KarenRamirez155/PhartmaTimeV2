@@ -3,9 +3,10 @@ import { RegisterModel } from '../../models/RegisterModel';
 
 import './register.css';
 import { registerService } from '../../services/user-service';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/userStore';
 
 const registerSchema = yup.object({
 	nombre: yup.string().required('El campo nombre es requerido'),
@@ -29,6 +30,15 @@ export const Register = () => {
 		isSuccess: false,
 		message: '',
 	});
+
+	const navigate = useNavigate();
+	const { isLogged } = useUserStore();
+
+	useEffect(() => {
+		if (isLogged) {
+			navigate('/dashboard');
+		}
+	}, []);
 
 	return (
 		<div className="bg-register">
