@@ -3,7 +3,7 @@ import { SCHEDULE, TUTOR_SCHEDULE } from '../config/endpoints';
 import { Schedule } from '../models/Schedule';
 import { TutorSchedule } from '../models/TutorShedule';
 import { tutorScheduleAdapter } from '../adapters/tutorScheduleAdapter';
-import cookies from 'cookies-js';
+import cookies from 'js-cookie';
 
 const token = cookies.get('user-token');
 

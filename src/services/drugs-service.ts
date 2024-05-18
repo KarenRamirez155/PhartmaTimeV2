@@ -3,7 +3,7 @@ import { AssignDrug } from '../models/AssignDrug';
 import { ASSIGN_DRUGS, GET_DRUGS } from '../config/endpoints';
 import { Drug } from '../models/Drug';
 
-import cookies from 'cookies-js';
+import cookies from 'js-cookie';
 
 const token = cookies.get('user-token');
 
@@ -19,7 +19,7 @@ export const assignDrugService = async (assignDrug: AssignDrug) => {
 };
 
 export const getAllDrugService = async (): Promise<Drug[]> => {
-	const result = await axios.post(GET_DRUGS(), {
+	const result = await axios.post(GET_DRUGS(), undefined, {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + token,

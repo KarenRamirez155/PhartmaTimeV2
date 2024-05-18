@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import cookies from 'cookies-js';
+import cookies from 'js-cookie';
 
 import { Profile } from '../models/Profile';
 
@@ -29,6 +29,7 @@ export const useUserStore = create<UserStoreType>()(
 				set({ profile: profile, isLogged: true });
 			},
 			logout: () => {
+				cookies.remove('user-token');
 				set({ profile: initProfile, isLogged: false });
 			},
 		}),

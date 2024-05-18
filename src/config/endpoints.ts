@@ -1,7 +1,7 @@
 const URL_API = import.meta.env.VITE_URL_API;
 
 //Usuario
-export const LOGIN = () => URL_API + 'User/Login';
+export const LOGIN = () => URL_API + 'Autentication/Login';
 export const REGISTER = () => URL_API + 'User/Register';
 export const RECOVERY_PASSWORD = () => URL_API + 'User/RecoverPasword';
 export const CHANGE_PASSWORD = () => URL_API + 'User/ChangePassword';

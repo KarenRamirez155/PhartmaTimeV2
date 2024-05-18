@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { REPORT } from '../config/endpoints';
-import cookies from 'cookies-js';
+import cookies from 'js-cookie';
 
 const token = cookies.get('user-token');
 
 export const generateReportService = async (
 	IdUsuario: number
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
 	const result = await axios.post(
 		REPORT(),

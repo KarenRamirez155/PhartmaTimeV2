@@ -3,12 +3,12 @@ import { GET_REQUEST_DRUGS, REQUEST_NEW_DRUGS } from '../config/endpoints';
 import { RequestDrug } from '../models/RequestDrug';
 import { NewDrug } from '../models/NewDrug';
 
-import cookies from 'cookies-js';
+import cookies from 'js-cookie';
 
 const token = cookies.get('user-token');
 
 export const getRequestDrugsService = async (): Promise<RequestDrug[]> => {
-	const result = await axios.post(GET_REQUEST_DRUGS(), {
+	const result = await axios.post(GET_REQUEST_DRUGS(), undefined, {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + token,

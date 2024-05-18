@@ -7,7 +7,7 @@ import {
 } from '../config/endpoints';
 import { PacienteModel } from '../models/PacienteModel';
 
-import cookies from 'cookies-js';
+import cookies from 'js-cookie';
 
 const token = cookies.get('user-token');
 
